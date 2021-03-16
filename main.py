@@ -1,16 +1,12 @@
+import collections as cl
+import datetime
 from http.server import HTTPServer, SimpleHTTPRequestHandler
-
-from jinja2 import Environment, FileSystemLoader, select_autoescape
-
 from pprint import pprint
 
-import datetime
-
 import openpyxl
-import xlrd
 import pandas as pd
-
-import collections as cl
+import xlrd
+from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 now = datetime.datetime.now()
 word = ''
