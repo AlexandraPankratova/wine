@@ -8,43 +8,48 @@ import pandas as pd
 import xlrd
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
-current_date = datetime.datetime.now()
-right_term_for_year = ''
-company_age = current_date.year - 1920
 
-if company_age%10 == 1:
-    right_term_for_year = 'год'
-elif company_age%10 == 2 or company_age%10 == 3 or company_age%10 == 4:
-    right_term_for_year = 'года'
-elif company_age%10 == 0 or company_age%10 == 5 or company_age%10 == 6 or company_age%10 == 7 or company_age%10 == 8 or company_age%10 == 9:
-    right_term_for_year = 'лет'
+def main():
+    current_date = datetime.datetime.now()
+    right_term_for_year = ''
+    company_age = current_date.year - 1920
 
-shop_stock = pd.read_excel('Shop_stock.xlsx', na_values='nan', keep_default_na=False)
+    if company_age%10 == 1:
+        right_term_for_year = 'год'
+    elif company_age%10 == 2 or company_age%10 == 3 or company_age%10 == 4:
+        right_term_for_year = 'года'
+    elif company_age%10 == 0 or company_age%10 == 5 or company_age%10 == 6 or company_age%10 == 7 or company_age%10 == 8 or company_age%10 == 9:
+        right_term_for_year = 'лет'
 
-wines = shop_stock.to_dict(orient='records')
+    shop_stock = pd.read_excel('Shop_stock.xlsx', na_values='nan', keep_default_na=False)
 
-categorised_shop_stock = cl.defaultdict(list)
+    wines = shop_stock.to_dict(orient='records')
 
-for drinks in wines:
-    categorised_shop_stock[drinks.get('Категория')].append(drinks)
+    categorised_shop_stock = cl.defaultdict(list)
 
-pprint (categorised_shop_stock)
+    for drinks in wines:
+        categorised_shop_stock[drinks.get('Категория')].append(drinks)
 
-env = Environment(
-    loader=FileSystemLoader('.'),
-    autoescape=select_autoescape(['html', 'xml'])
-)
-template = env.get_template('template.html')
+    pprint (categorised_shop_stock)
 
-rendered_page = template.render(
-    age = company_age,
-    year = right_term_for_year,
-    wines = wines,
-    collection = sorted(categorised_shop_stock.keys())
-)
+    env = Environment(
+        loader=FileSystemLoader('.'),
+        autoescape=select_autoescape(['html', 'xml'])
+    )
+    template = env.get_template('template.html')
 
-with open('index.html', 'w', encoding="utf8") as file:
-    file.write(rendered_page)
+    rendered_page = template.render(
+        age = company_age,
+        year = right_term_for_year,
+        wines = wines,
+        collection = sorted(categorised_shop_stock.keys())
+    )
 
-server = HTTPServer(('0.0.0.0', 8000), SimpleHTTPRequestHandler)
-server.serve_forever()
+    with open('index.html', 'w', encoding="utf8") as file:
+        file.write(rendered_page)
+
+    server = HTTPServer(('0.0.0.0', 8000), SimpleHTTPRequestHandler)
+    server.serve_forever()
+
+if __name__ == '__main__':
+    main()
