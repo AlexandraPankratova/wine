@@ -23,7 +23,7 @@ elif (now.year - year_est)%10 == 2 or (now.year - year_est)%10 == 3 or (now.year
 elif (now.year - year_est)%10 == 0 or (now.year - year_est)%10 == 5 or (now.year - year_est)%10 == 6 or (now.year - year_est)%10 == 7 or (now.year - year_est)%10 == 8 or (now.year - year_est)%10 == 9:
     word = 'лет'
 
-data = pd.read_excel('wine3.xlsx', na_values='nan', keep_default_na=False)
+data = pd.read_excel('Shop_stock.xlsx', na_values='nan', keep_default_na=False)
 
 wines = data.to_dict(orient='records')
 
