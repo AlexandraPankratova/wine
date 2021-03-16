@@ -14,14 +14,25 @@ def main():
     right_term_for_year = ''
     company_age = current_date.year - 1920
 
-    if company_age%10 == 1:
+    if company_age % 10 == 1:
         right_term_for_year = 'год'
-    elif company_age%10 == 2 or company_age%10 == 3 or company_age%10 == 4:
+    elif company_age % 10 == 2 or \
+        company_age % 10 == 3 or \
+            company_age % 10 == 4:
         right_term_for_year = 'года'
-    elif company_age%10 == 0 or company_age%10 == 5 or company_age%10 == 6 or company_age%10 == 7 or company_age%10 == 8 or company_age%10 == 9:
+    elif company_age % 10 == 0 or \
+        company_age % 10 == 5 or \
+        company_age % 10 == 6 or \
+        company_age % 10 == 7 or \
+        company_age % 10 == 8 or \
+            company_age % 10 == 9:
         right_term_for_year = 'лет'
 
-    shop_stock = pd.read_excel('Shop_stock.xlsx', na_values='nan', keep_default_na=False)
+    shop_stock = pd.read_excel(
+        'Shop_stock.xlsx',
+        na_values='nan',
+        keep_default_na=False,
+    )
 
     wines = shop_stock.to_dict(orient='records')
 
@@ -30,7 +41,7 @@ def main():
     for drinks in wines:
         categorised_shop_stock[drinks.get('Категория')].append(drinks)
 
-    pprint (categorised_shop_stock)
+    pprint(categorised_shop_stock)
 
     env = Environment(
         loader=FileSystemLoader('.'),
@@ -39,10 +50,10 @@ def main():
     template = env.get_template('template.html')
 
     rendered_page = template.render(
-        age = company_age,
-        year = right_term_for_year,
-        wines = wines,
-        collection = sorted(categorised_shop_stock.keys())
+        age=company_age,
+        year=right_term_for_year,
+        wines=wines,
+        collection=sorted(categorised_shop_stock.keys())
     )
 
     with open('index.html', 'w', encoding="utf8") as file:
