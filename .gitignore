@@ -1,3 +1,19 @@
-env/
+#Ignore files of IDE
 .vscode/
+.idea
 
+#Ignore virtual environment files
+wine_env/*
+
+#Ignore files used in the process of building a project
+.replit
+wine.xlsx
+wine2.xlsx
+index.html
+
+#Ignore Python building catalogs
+__pycache__
+
+#Ignore OS files
+Thumbs.db
+.DS_Store
