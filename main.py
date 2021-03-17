@@ -1,3 +1,4 @@
+import argparse
 import collections as cl
 import datetime
 from http.server import HTTPServer, SimpleHTTPRequestHandler
@@ -6,10 +7,16 @@ from pprint import pprint
 import openpyxl
 import pandas as pd
 import xlrd
+from dotenv import dotenv_values
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 
 def main():
+    parser = argparse.ArgumentParser(
+        description='Программа развертывает сайт магазина авторского вина')
+    parser.add_argument('File', help='Название файла с исходными данными')
+    file_name = parser.parse_args()
+
     current_date = datetime.datetime.now()
     right_term_for_year = ''
     company_age = current_date.year - 1920
@@ -29,7 +36,7 @@ def main():
         right_term_for_year = 'лет'
 
     shop_stock = pd.read_excel(
-        'Shop_stock.xlsx',
+        file_name.File,
         na_values='nan',
         keep_default_na=False,
     )
