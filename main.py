@@ -48,8 +48,6 @@ def main():
     for drinks in wines:
         categorised_shop_stock[drinks.get('Категория')].append(drinks)
 
-    pprint(categorised_shop_stock)
-
     env = Environment(
         loader=FileSystemLoader('.'),
         autoescape=select_autoescape(['html', 'xml'])
