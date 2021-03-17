@@ -11,6 +11,13 @@ from dotenv import dotenv_values
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 
+def dict_to_simple_dict(dictionary_items):
+    drinks = []
+    for list_number in range(len(list(dictionary_items))):
+        drinks = drinks + list(dictionary_items)[list_number][1]
+    return drinks
+
+
 def main():
     parser = argparse.ArgumentParser(
         description='Программа развертывает сайт магазина авторского вина')
@@ -50,15 +57,15 @@ def main():
 
     env = Environment(
         loader=FileSystemLoader('.'),
-        autoescape=select_autoescape(['html', 'xml'])
+        autoescape=select_autoescape(['html', 'xml']),
     )
     template = env.get_template('template.html')
 
     rendered_page = template.render(
         age=company_age,
         year=right_term_for_year,
-        wines=wines,
-        collection=sorted(categorised_shop_stock.keys())
+        wines=dict_to_simple_dict(categorised_shop_stock.items()),
+        collection=sorted(categorised_shop_stock.keys()),
     )
 
     with open('index.html', 'w', encoding="utf8") as file:
