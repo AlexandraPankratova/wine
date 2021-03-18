@@ -4,10 +4,7 @@ import datetime
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 from pprint import pprint
 
-import openpyxl
 import pandas as pd
-import xlrd
-from dotenv import dotenv_values
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 
