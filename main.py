@@ -7,13 +7,6 @@ import pandas as pd
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 
-def dict_to_simple_dict(dictionary_items):
-    drinks = []
-    for list_number in range(len(list(dictionary_items))):
-        drinks = drinks + list(dictionary_items)[list_number][1]
-    return drinks
-
-
 def main():
     parser = argparse.ArgumentParser(
         description='Программа развертывает сайт магазина авторского вина')
@@ -21,21 +14,13 @@ def main():
     file_name = parser.parse_args()
 
     current_date = datetime.datetime.now()
-    right_term_for_year = ''
     company_age = current_date.year - 1920
 
     if company_age % 10 == 1:
         right_term_for_year = 'год'
-    elif company_age % 10 == 2 or \
-        company_age % 10 == 3 or \
-            company_age % 10 == 4:
+    elif company_age % 10 in (2, 3, 4):
         right_term_for_year = 'года'
-    elif company_age % 10 == 0 or \
-        company_age % 10 == 5 or \
-        company_age % 10 == 6 or \
-        company_age % 10 == 7 or \
-        company_age % 10 == 8 or \
-            company_age % 10 == 9:
+    else:
         right_term_for_year = 'лет'
 
     shop_stock = pd.read_excel(
@@ -60,8 +45,7 @@ def main():
     rendered_page = template.render(
         age=company_age,
         year=right_term_for_year,
-        wines=dict_to_simple_dict(categorised_shop_stock.items()),
-        collection=sorted(categorised_shop_stock.keys()),
+        categorised_drinks=sorted(categorised_shop_stock.items()),
     )
 
     with open('index.html', 'w', encoding="utf8") as file:
