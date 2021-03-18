@@ -28,13 +28,25 @@
 
 - Скачайте код
 - Создайте новое виртуальное окружение, выполнив последовательно команды:
-	`python3 -m venv envname`
-	`source envname/bin/activate`, где envname - имя нового виртуального окружения
+	```bash
+	python3 -m venv envname
+	source envname/bin/activate
+	```
+, где envname - имя нового виртуального окружения
 - Загрузити необходимые для работы библиотеки из файла requirements.txt:
-	`pip install -r requirements.txt`
-- Запустите сайт командой `python3 main.py /путь/к/файлу/с/исходными/данными`, например: `python3 main.py /home/user_1/Shop_stock.xlsx`
+	```bash
+	pip install -r requirements.txt`
+	```
+- Запустите сайт командой 
+	```bash
+	python3 main.py /путь/к/файлу/с/исходными/данными
+	```
+, например: `python3 main.py /home/user_1/Shop_stock.xlsx`
 - Перейдите на сайт по адресу [http://127.0.0.1:8000](http://127.0.0.1:8000)
-- По окончании работы для выхода из виртуального окружения выполните команду `deactivate`
+- По окончании работы для выхода из виртуального окружения выполните команду 
+	```bash
+	deactivate
+	```
 
 ## Цели проекта
 
