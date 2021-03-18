@@ -115,32 +115,32 @@
         </div>
 
       {% for categories, drinks in categorised_drinks %}
-              <div class="col-12 section-title text-center mb-5">
-                <h2 class="d-block">{{categories}}</h2>
-              </div>
+        <div class="col-12 section-title text-center mb-5">
+          <h2 class="d-block">{{categories}}</h2>
+        </div>
         <div class="row">
           {% for wine in drinks %}
-              <div class="col-lg-4 mb-5 col-md-6">
-                <div class="wine_v_1 text-center pb-4 pt-5">
-                  {% if wine.Картинка %}
-                    <img src="images/{{wine.Картинка}}" alt="Image" class="img-fluid">
-                    {% if wine.Акция %}
-                      <img src="assets/profitable.png" style="width:10rem;height: 10rem;position:absolute;right: -20px;top: -20px;">
+            <div class="col-lg-4 mb-5 col-md-6">
+              <div class="wine_v_1 text-center pb-4 pt-5">
+                {% if wine.Картинка %}
+                  <img src="images/{{wine.Картинка}}" alt="Image" class="img-fluid">
+                {% else %}
+                  <img src="https://dvmn.org/filer/canonical/1569944855/354/" class="card-img-top" alt="...">
+                {% endif %} 
+                {% if wine.Акция %}
+                  <img src="assets/profitable.png" style="width:10rem;height: 10rem;position:absolute;right: -20px;top: -20px;">
+                {% endif %}                 
+                <div>
+                  <h3 class="heading mt-3 mb-3 text-dark">{{wine.Название}}</h3>
+                  <p>
+                    {% if wine.Сорт %}
+                    Сорт винограда - {{wine.Сорт}}     <br/>
                     {% endif %}
-                  {% else %}
-                    <img src="https://dvmn.org/filer/canonical/1569944855/354/" class="card-img-top" alt="...">
-                  {% endif %}                  
-                  <div>
-                    <h3 class="heading mt-3 mb-3 text-dark">{{wine.Название}}</h3>
-                    <p>
-                      {% if wine.Сорт %}
-                      Сорт винограда - {{wine.Сорт}}     <br/>
-                      {% endif %}
-                      <span class="price">{{wine.Цена}} р.</span>
-                    </p>
-                  </div>
+                    <span class="price">{{wine.Цена}} р.</span>
+                  </p>
                 </div>
               </div>
+            </div>
           {% endfor %}
         </div>
       {% endfor %}
